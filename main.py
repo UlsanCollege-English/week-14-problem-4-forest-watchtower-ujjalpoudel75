@@ -1,6 +1,4 @@
-
 ## main.py
-```python
 """
 HW04 — Forest Watchtower (Balanced Tree Check)
 
@@ -14,12 +12,9 @@ class TreeNode:
     """
 
     def __init__(self, value, left=None, right=None):
-        # TODO: store the given fields on the instance
-        # Example:
-        # self.value = value
-        # self.left = left
-        # self.right = right
-        pass
+        self.value = value
+        self.left = left
+        self.right = right
 
 
 def is_balanced(root):
@@ -28,11 +23,19 @@ def is_balanced(root):
 
     Empty tree (root is None) is considered balanced.
     """
-    # TODO (8 Steps of Coding, minimal prompts):
-    # - Design a helper that checks balance and height in one traversal.
-    # - Implement the recursive logic.
-    # - Test on small examples (empty tree, single node, skewed tree).
-    raise NotImplementedError("Implement is_balanced in main.py")
+    def check(node):
+        if node is None:
+            return True, 0
+        left_balanced, left_height = check(node.left)
+        right_balanced, right_height = check(node.right)
+        balanced = (
+            left_balanced and right_balanced and abs(left_height - right_height) <= 1
+        )
+        height = 1 + max(left_height, right_height)
+        return balanced, height
+
+    balanced, _ = check(root)
+    return balanced
 
 
 if __name__ == "__main__":
